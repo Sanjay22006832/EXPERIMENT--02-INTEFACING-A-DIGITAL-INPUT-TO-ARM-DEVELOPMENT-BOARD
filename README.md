@@ -51,39 +51,47 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 
 ## STM 32 CUBE PROGRAM :
+```C
+NAME : AFSAR JUMAIL S
+REFNO : 212222240004
 
-```
-Developed by: M Sanjay
-Reference number:212222240090
 
 #include "main.h"
-#include "stdio.h"
 #include "stdbool.h"
-bool pb;
+bool button_status;
+void push_button();
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 
+
 int main(void)
 {
   HAL_Init();
+
   SystemClock_Config();
+
   MX_GPIO_Init();
+ 
   while (1)
   {
-	  pb = HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13);
-	  if(pb==0)
-	  {
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-		  HAL_Delay(100);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-		  HAL_Delay(100);
-	  }
-	  else
-	  {
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-	  } 
+	  push_button();
   }
+}
+void push_button()
+{
+	button_status = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+	if(button_status == 0)
+	{
+		 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+		 HAL_Delay(1000);
+		 HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+		 HAL_Delay(1000);
+	}
+ else
+    {
+    	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+    }
 }
 
 void SystemClock_Config(void)
@@ -92,7 +100,7 @@ void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
-  
+
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
@@ -102,7 +110,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  
+
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -115,13 +123,15 @@ void SystemClock_Config(void)
   }
 }
 
-
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+
 
   GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
@@ -133,7 +143,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
 }
 void Error_Handler(void)
 {
@@ -147,19 +156,18 @@ void Error_Handler(void)
 
 void assert_failed(uint8_t *file, uint32_t line)
 {
- }
+ 
+}
+#endif
 ```
 
 
-
 ## Output  :
+![261642740-08b0e724-999e-4ceb-8df8-5e3fd846a7c8](https://github.com/Afsarjumail/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/118343395/3ea94a29-8cf0-404a-98c4-2a837ee5c23f)
+![261642782-b57d0436-55c0-4528-b39e-77c6ef8f9f1e](https://github.com/Afsarjumail/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/118343395/9ad032e0-37ab-4f6f-9241-c016304fe436)
+![261642254-f2431dfc-58a8-48e2-98ef-3b899363609a](https://github.com/Afsarjumail/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/118343395/e8036427-37a1-4f8c-acdb-febbe485c032)
 
-![ee1](https://github.com/MUKESHPARTHASARATHY/EXPERIMENT--02-INTEFACING-A-DIGITAL-INPUT-TO-ARM-DEVELOPMENT-BOARD/assets/119393818/a1b2a1b0-0111-42f6-ab15-5e81da26a5f7)
-
- 
- 
  
  
 ## Result :
 Interfacing a digital Input (Pushbutton ) with ARM microcontroller based IOT development is executed and the results are verified.
-](http://lms2.eee.saveetha.in/mod/assign/view.php?id=123&action=editsubmission)
